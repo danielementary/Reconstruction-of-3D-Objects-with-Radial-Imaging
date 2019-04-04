@@ -2,8 +2,8 @@ import numpy as np
 import cv2 as cv
 
 def recover_shape(filename, views_shape):
-    """
-    """
+    """Rotate horizontal slices of reconstructed points to recover the initial
+       disk shape"""
 
     print("recover shape "+filename)
     helper(filename+" left points", views_shape)
@@ -12,12 +12,11 @@ def recover_shape(filename, views_shape):
 
 
 def helper(filename, views_shape):
-    """
-    """
 
     points = np.load(filename+".npy")
     steps = views_shape[0]
 
+    #degrees per steps
     alpha = np.pi/steps
 
     recovered = []
@@ -26,13 +25,13 @@ def helper(filename, views_shape):
     counter = 0
     for p in points.T:
         p = p[0]
-        if (counter >= views_shape[1] and counter % views_shape[1] == 0):
-            angle += alpha
-
         x, y, z = p
         s, c = np.sin(angle), np.cos(angle)
+
+        #store the new coordinates rotated around the z-axis depending on angle
         recovered.append([x*c, x*s, z])
         counter += 1
+        angle += alpha
 
     recovered_np = np.array(recovered)
 

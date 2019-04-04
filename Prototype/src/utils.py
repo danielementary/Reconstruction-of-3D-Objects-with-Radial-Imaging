@@ -1,13 +1,17 @@
 import numpy as np
 import cv2 as cv
 
-from load_save import load_image, save_image
+from src.load_save import load_image, save_image
+
+#mathematical functions
 
 def csc(alpha):
     return 1.0/np.sin(alpha)
 
 def cot(alpha):
     return np.cos(alpha)/np.sin(alpha)
+
+#function to compute project specific parameters
 
 def angle_of_view(dimension, focal_length):
     return 2*np.arctan2(dimension, 2.0*focal_length)

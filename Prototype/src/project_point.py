@@ -1,13 +1,19 @@
+#this is a standalon script created to ensure that everything runs as expected
+
 import numpy as np
 import cv2 as cv
 
-from calibration import projection_matrices
+from src.calibration import projection_matrices
 
 def get_2d_point(point_3d_homogeneous, projection_matrix):
+    """Convert a 3d homogeneous coordinates point
+       to a 2d euclidean coordinates"""
+
     temp = np.matmul(projection_matrix, point_3d_homogeneous)
 
     return cv.convertPointsFromHomogeneous(np.array([temp], np.float))
 
+#used camera intrinsic parameters for testing
 radius = 35
 sensor_resolution = np.array([3744, 3744])
 sensor_size = np.array([24, 24])

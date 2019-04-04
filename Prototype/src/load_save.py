@@ -21,6 +21,8 @@ def save_three_views(filename, ext, left_view, central_view, right_view):
     print("3 saved images " + filename)
 
 def save_merged_views(filename, ext, left_view, central_view, right_view):
+    """Merge and save three views in one single image"""
+
     h1, h2, h3 = (left_view.shape[0], central_view.shape[0], \
                   right_view.shape[0])
 

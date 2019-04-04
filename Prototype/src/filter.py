@@ -1,3 +1,5 @@
+#this was not used in the final version
+
 import numpy as np
 import cv2 as cv
 
@@ -6,8 +8,8 @@ from matplotlib import pyplot as plt
 THRESHOLD = 20
 
 def filter_valid_matches(filename, views_shape):
-    """
-    """
+    """Apply thresholding to filter potential outliers according to the distances
+       between left-central and central-right estimations"""
 
     print("filter "+filename)
 
@@ -21,11 +23,9 @@ def filter_valid_matches(filename, views_shape):
     filter_matrix[np.absolute(confidence_distances[2]).reshape(views_shape) <= THRESHOLD] = 1
     filter_matrix[np.absolute(confidence_distances[2]).reshape(views_shape) > THRESHOLD] = 0
 
-    print(filter_matrix)
-
     display_distances(left_points, right_points, filter_matrix, views_shape)
 
-    left_points *= filter_matrix.flatten()
+    left_points  *= filter_matrix.flatten()
     right_points *= filter_matrix.flatten()
 
     np.save(filename+" filtered left points.npy", left_points)
@@ -34,8 +34,8 @@ def filter_valid_matches(filename, views_shape):
     print("end filter "+filename)
 
 def display_distances(left_points, right_points, filter_matrix, views_shape):
-    """
-    """
+    """Display distances between points alonx x-, y- and z-axis
+       according to left-central and central-right estimations"""
 
     difference = left_points-right_points
 

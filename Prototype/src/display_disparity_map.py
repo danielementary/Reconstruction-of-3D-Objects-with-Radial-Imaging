@@ -5,8 +5,8 @@ from matplotlib import pyplot as plt
 from matplotlib import image
 
 def display_disparity_map(filename):
-    """
-    """
+    """display disparity maps computed between left-central
+       and central-right views"""
 
     left = np.load(filename+" disparity map left.npy")
     right = np.load(filename+" disparity map right.npy")

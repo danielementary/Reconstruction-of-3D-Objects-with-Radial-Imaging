@@ -2,13 +2,14 @@ import numpy as np
 import cv2 as cv
 
 from matplotlib import pyplot as plt
-from load_save import load_image, save_image
+from src.load_save import load_image, save_image
 
+#use normalized cross-correlation as comparison method
 METHOD = cv.TM_CCORR_NORMED
 
 def stereo_matching(filename, ext, window_shape, bound):
-    """
-    """
+    """save disparity maps and correspondance maps between
+       left-central and central-right images"""
 
     print("stereo matching " + filename)
 
@@ -35,8 +36,8 @@ def stereo_matching(filename, ext, window_shape, bound):
     print("end stereo matching " + filename)
 
 def template_matching_cl(central_image, left_image, H, W, h, w, bound):
-    """
-    """
+    """compute disparity map and correspondance map between
+       left-central. Maps values are bounded by bound"""
 
     disparity_map = np.empty((H-h+1, W-w+1))
     correspondance = np.empty((H-h+1, W-w+1))
@@ -62,8 +63,8 @@ def template_matching_cl(central_image, left_image, H, W, h, w, bound):
     return (disparity_map, correspondance)
 
 def template_matching_cr(central_image, right_image, H, W, h, w, bound):
-    """
-    """
+    """compute disparity map and correspondance map between
+       cemtral-right. Maps values are bounded by bound"""
 
     disparity_map = np.empty((H-h+1, W-w+1))
     correspondance = np.empty((H-h+1, W-w+1))

@@ -1,9 +1,10 @@
 import numpy as np
 import cv2 as cv
 
-from utils import distance_vr
+from src.utils import distance_vr
 
 def projection_matrices(focal_length, sensor_size, sensor_resolution, radius):
+    """return left, central and right projections matrices"""
 
     cy, cx = sensor_resolution/2.0
     fy, fx = sensor_resolution*focal_length/(1.0*sensor_size)
@@ -19,9 +20,13 @@ def projection_matrices(focal_length, sensor_size, sensor_resolution, radius):
             projection_matrix(camera_matrix, camera_pose_matrix(vr)))
 
 def projection_matrix(camera_matrix, rotation_translation_matrix):
+    """compute a projection matrix given intrinsic and extrinsic parameters"""
+
     return np.matmul(camera_matrix, rotation_translation_matrix)
 
 def camera_pose_matrix(vr):
+    """return extrinsic parameters computed as a translation along x-axis"""
+
     return np.array([[1, 0, 0,-vr],
                      [0, 1, 0,  0],
                      [0, 0, 1,  0]])

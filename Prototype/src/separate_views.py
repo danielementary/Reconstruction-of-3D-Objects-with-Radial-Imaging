@@ -1,10 +1,11 @@
 import numpy as np
 import cv2 as cv
 
-from load_save import load_image, save_three_views, save_merged_views
-from utils import resize
+from src.load_save import load_image, save_three_views, save_merged_views
+from src.utils import resize
 
 def separate_views(filename, ext, sensor_resolution):
+    """Separate left, central and right views from a radial image"""
 
     print("views separation " + filename)
 
@@ -35,6 +36,7 @@ def angle_alpha(steps):
     return np.pi/steps
 
 def take_slice(step, alpha, image, side):
+    """Extract step'th slice"""
 
     slice = np.empty((side, 3))
     center = half = int((side-1)/2)
@@ -58,6 +60,7 @@ def virtual_real_lengths(side):
     return (int(side/3), int(side/3))
 
 def split_slice(slice, virtual_length, real_length):
+    """Splice a slice into left, central and right parts"""
 
     JK, LM = np.empty((virtual_length, 3)), np.empty((virtual_length, 3))
     KL = np.empty((real_length, 3))

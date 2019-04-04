@@ -2,13 +2,11 @@ import numpy as np
 import cv2 as cv
 
 import matplotlib.pyplot as plt
-from scipy.signal import medfilt2d
-from calibration import projection_matrices
-from utils import from_homogeneous_to_cartesian
+from src.calibration import projection_matrices
+from src.utils import from_homogeneous_to_cartesian
 
 def points_matrices(filename, views_shape, sensor_resolution):
-    """
-    """
+    """Load and prepare point matrices to triangulate"""
 
     x_offset = sensor_resolution[1]/3
     y_offset = (sensor_resolution[0]-views_shape[0])/2
@@ -39,8 +37,7 @@ def points_matrices(filename, views_shape, sensor_resolution):
 
 def triangulation(filename, views_shape, focal_length, sensor_size, \
                   sensor_resolution, radius, theta):
-    """
-    """
+    """Triangulate and save points"""
 
     print("triangulation "+filename)
 
